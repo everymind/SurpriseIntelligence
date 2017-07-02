@@ -126,7 +126,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q4:FileCapture">
-                <q4:FileName>Videos\pupil_hidef.avi</q4:FileName>
+                <q4:FileName>Videos\CA_L1-H2013-03_2014-09-09_TS02_catch_60fps.avi</q4:FileName>
                 <q4:PlaybackRate>10000</q4:PlaybackRate>
                 <q4:StartPosition>0</q4:StartPosition>
                 <q4:PositionUnits>Frames</q4:PositionUnits>
@@ -144,7 +144,7 @@
               <Combinator xsi:type="Last" />
             </Expression>
             <Expression xsi:type="q1:CsvWriter">
-              <q1:FileName>2017-07-01-18-32-32/lefteye.csv</q1:FileName>
+              <q1:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.csv</q1:FileName>
               <q1:Append>false</q1:Append>
               <q1:Overwrite>false</q1:Overwrite>
               <q1:Suffix>None</q1:Suffix>
@@ -156,7 +156,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q4:VideoWriter">
-                <q4:FileName>2017-07-01-18-32-32/lefteye.avi</q4:FileName>
+                <q4:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.avi</q4:FileName>
                 <q4:Suffix>None</q4:Suffix>
                 <q4:Buffered>true</q4:Buffered>
                 <q4:Overwrite>false</q4:Overwrite>
@@ -170,7 +170,7 @@
               </Combinator>
             </Expression>
             <Expression xsi:type="q1:CsvWriter">
-              <q1:FileName>2017-07-01-18-32-32/righteye.csv</q1:FileName>
+              <q1:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_righteye.csv</q1:FileName>
               <q1:Append>false</q1:Append>
               <q1:Overwrite>false</q1:Overwrite>
               <q1:Suffix>None</q1:Suffix>
@@ -179,7 +179,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q4:VideoWriter">
-                <q4:FileName>2017-07-01-18-32-32/righteye.avi</q4:FileName>
+                <q4:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_righteye.avi</q4:FileName>
                 <q4:Suffix>None</q4:Suffix>
                 <q4:Buffered>true</q4:Buffered>
                 <q4:Overwrite>false</q4:Overwrite>
@@ -211,7 +211,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q4:VideoWriter">
-                <q4:FileName>2017-07-01-18-32-32/world.avi</q4:FileName>
+                <q4:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_world.avi</q4:FileName>
                 <q4:Suffix>None</q4:Suffix>
                 <q4:Buffered>true</q4:Buffered>
                 <q4:Overwrite>false</q4:Overwrite>
@@ -228,7 +228,7 @@
               <Selector>Source.Value</Selector>
             </Expression>
             <Expression xsi:type="q1:CsvWriter">
-              <q1:FileName>2017-07-01-18-32-32/world.csv</q1:FileName>
+              <q1:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_world.csv</q1:FileName>
               <q1:Append>false</q1:Append>
               <q1:Overwrite>false</q1:Overwrite>
               <q1:Suffix>None</q1:Suffix>
@@ -239,7 +239,10 @@
               <Combinator xsi:type="Timestamp" />
             </Expression>
             <Expression xsi:type="q5:ExpressionTransform">
-              <q5:Expression>it.Timestamp.ToString("yyyy-MM-dd-HH-mm-ss")+"/"</q5:Expression>
+              <q5:Expression>it.Timestamp.ToString("yyyy-MM-dd_HH-mm-ss")+"/"+
+it.Timestamp.ToString("yyyy-MM-dd_HH-mm-ss")+"_"+
+it.Value.Substring(it.Value.IndexOf("\")+1,
+it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q5:Expression>
             </Expression>
             <Expression xsi:type="ReplaySubject">
               <Name>FolderName</Name>
@@ -343,13 +346,50 @@
             <Expression xsi:type="SubscribeSubject">
               <Name>WorldStart</Name>
             </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q1:GetFiles">
+                <q1:Path>Videos</q1:Path>
+                <q1:SearchPattern>*.avi</q1:SearchPattern>
+                <q1:SearchOption>TopDirectoryOnly</q1:SearchOption>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="q5:PythonTransform">
+              <q5:Script>from System import Random
+
+generator = Random()
+
+@returns(str)
+def process(value):
+  index = generator.Next(0,len(value))
+  return value[index]</q5:Script>
+            </Expression>
+            <Expression xsi:type="ExternalizedPropertyOfStringFileCapture">
+              <MemberName>FileName</MemberName>
+              <Name>FileName</Name>
+              <Value>Videos\pupil_hidef.avi</Value>
+            </Expression>
+            <Expression xsi:type="ReplaySubject">
+              <Name>StimulusPath</Name>
+              <BufferSize>1</BufferSize>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>StimulusPath</Name>
+            </Expression>
+            <Expression xsi:type="ReplaySubject">
+              <Name>FeedbackPath</Name>
+              <BufferSize>1</BufferSize>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FeedbackPath</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Zip" />
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Source.Item2</Selector>
+            </Expression>
           </Nodes>
           <Edges>
-            <Edge>
-              <From>0</From>
-              <To>7</To>
-              <Label>Source1</Label>
-            </Edge>
             <Edge>
               <From>3</From>
               <To>13</To>
@@ -402,7 +442,7 @@
             </Edge>
             <Edge>
               <From>13</From>
-              <To>1</To>
+              <To>58</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -507,7 +547,7 @@
             </Edge>
             <Edge>
               <From>37</From>
-              <To>34</To>
+              <To>56</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -575,6 +615,51 @@
               <To>47</To>
               <Label>Source2</Label>
             </Edge>
+            <Edge>
+              <From>51</From>
+              <To>52</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>52</From>
+              <To>54</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>53</From>
+              <To>10</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>54</From>
+              <To>7</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>55</From>
+              <To>53</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>56</From>
+              <To>34</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>57</From>
+              <To>58</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>58</From>
+              <To>59</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>59</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
           </Edges>
         </Workflow>
       </Expression>
@@ -603,12 +688,46 @@
             <Expression xsi:type="WorkflowInput">
               <Name>Source1</Name>
             </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q4:FileCapture">
+                <q4:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.avi</q4:FileName>
+                <q4:PlaybackRate>0</q4:PlaybackRate>
+                <q4:StartPosition>0</q4:StartPosition>
+                <q4:PositionUnits>Frames</q4:PositionUnits>
+                <q4:Loop>false</q4:Loop>
+                <q4:Playing>true</q4:Playing>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="ExternalizedPropertyOfStringFileCapture">
+              <MemberName>FileName</MemberName>
+              <Name>FileName</Name>
+            </Expression>
             <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="DelaySubscription">
+                <DueTime>PT2S</DueTime>
+              </Combinator>
+            </Expression>
           </Nodes>
           <Edges>
             <Edge>
               <From>0</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>1</From>
+              <To>4</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>2</From>
               <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>4</From>
+              <To>3</To>
               <Label>Source1</Label>
             </Edge>
           </Edges>
@@ -667,6 +786,9 @@
     <Type>Bonsai.Expressions.ExternalizedProperty`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Bonsai.Vision.VideoWriter, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null]], Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.SkipUntil, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.DelaySubscription, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.IO.GetFiles, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Scripting.PythonTransform, Bonsai.Scripting, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.ExternalizedProperty`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Bonsai.Vision.FileCapture, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null]], Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.RenderFrame, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.DrawMesh, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.TakeUntil, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
