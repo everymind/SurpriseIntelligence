@@ -1,0 +1,676 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.3.0">
+  <Workflow xmlns:q2="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:q3="clr-namespace:Bonsai.Video;assembly=Bonsai.Video" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q5="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q4="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:q1="clr-namespace:Bonsai.IO;assembly=Bonsai.System" xmlns="https://horizongir.org/bonsai">
+    <Nodes>
+      <Expression xsi:type="NestedWorkflow">
+        <Name>WaitForContact</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q1:SerialStringRead">
+                <q1:PortName>COM5</q1:PortName>
+                <q1:NewLine>\r\n</q1:NewLine>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="Condition">
+              <Name>Contact</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="StringProperty">
+                      <Value>1</Value>
+                    </Operand>
+                  </Expression>
+                </Nodes>
+                <Edges>
+                  <Edge>
+                    <From>0</From>
+                    <To>2</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>2</From>
+                    <To>1</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Take">
+                <Count>1</Count>
+              </Combinator>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>2</From>
+              <To>3</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>3</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="SelectMany">
+        <Name>PlayVideo</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="ReplaySubject">
+              <Name>Frames</Name>
+              <BufferSize xsi:nil="true" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q2:UpdateTexture">
+                <q2:TextureName>Video</q2:TextureName>
+                <q2:InternalFormat>Rgba</q2:InternalFormat>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Source.Item1</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Zip" />
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Frames</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Timestamp" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q3:VideoCaptureDevice">
+                <q3:Index>1</q3:Index>
+                <q3:Format>
+                  <q3:FrameSize>
+                    <q3:Width>800</q3:Width>
+                    <q3:Height>600</q3:Height>
+                  </q3:FrameSize>
+                  <q3:AverageFrameRate>60</q3:AverageFrameRate>
+                  <q3:MaximumFrameRate>60</q3:MaximumFrameRate>
+                  <q3:BitCount>24</q3:BitCount>
+                </q3:Format>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q3:VideoCaptureDevice">
+                <q3:Index>2</q3:Index>
+                <q3:Format>
+                  <q3:FrameSize>
+                    <q3:Width>800</q3:Width>
+                    <q3:Height>600</q3:Height>
+                  </q3:FrameSize>
+                  <q3:AverageFrameRate>60</q3:AverageFrameRate>
+                  <q3:MaximumFrameRate>60</q3:MaximumFrameRate>
+                  <q3:BitCount>24</q3:BitCount>
+                </q3:Format>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q4:FileCapture">
+                <q4:FileName>Videos\pupil_hidef.avi</q4:FileName>
+                <q4:PlaybackRate>10000</q4:PlaybackRate>
+                <q4:StartPosition>0</q4:StartPosition>
+                <q4:PositionUnits>Frames</q4:PositionUnits>
+                <q4:Loop>false</q4:Loop>
+                <q4:Playing>true</q4:Playing>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Timestamp" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Timestamp" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Last" />
+            </Expression>
+            <Expression xsi:type="q1:CsvWriter">
+              <q1:FileName>2017-07-01-18-32-32/lefteye.csv</q1:FileName>
+              <q1:Append>false</q1:Append>
+              <q1:Overwrite>false</q1:Overwrite>
+              <q1:Suffix>None</q1:Suffix>
+              <q1:IncludeHeader>false</q1:IncludeHeader>
+              <q1:Selector>Source.Timestamp</q1:Selector>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Source.Value</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q4:VideoWriter">
+                <q4:FileName>2017-07-01-18-32-32/lefteye.avi</q4:FileName>
+                <q4:Suffix>None</q4:Suffix>
+                <q4:Buffered>true</q4:Buffered>
+                <q4:Overwrite>false</q4:Overwrite>
+                <q4:FourCC>FMP4</q4:FourCC>
+                <q4:FrameRate>60</q4:FrameRate>
+                <q4:FrameSize>
+                  <q4:Width>0</q4:Width>
+                  <q4:Height>0</q4:Height>
+                </q4:FrameSize>
+                <q4:ResizeInterpolation>NearestNeighbor</q4:ResizeInterpolation>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="q1:CsvWriter">
+              <q1:FileName>2017-07-01-18-32-32/righteye.csv</q1:FileName>
+              <q1:Append>false</q1:Append>
+              <q1:Overwrite>false</q1:Overwrite>
+              <q1:Suffix>None</q1:Suffix>
+              <q1:IncludeHeader>false</q1:IncludeHeader>
+              <q1:Selector>Source.Timestamp</q1:Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q4:VideoWriter">
+                <q4:FileName>2017-07-01-18-32-32/righteye.avi</q4:FileName>
+                <q4:Suffix>None</q4:Suffix>
+                <q4:Buffered>true</q4:Buffered>
+                <q4:Overwrite>false</q4:Overwrite>
+                <q4:FourCC>FMP4</q4:FourCC>
+                <q4:FrameRate>60</q4:FrameRate>
+                <q4:FrameSize>
+                  <q4:Width>0</q4:Width>
+                  <q4:Height>0</q4:Height>
+                </q4:FrameSize>
+                <q4:ResizeInterpolation>NearestNeighbor</q4:ResizeInterpolation>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Source.Value</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q3:VideoCaptureDevice">
+                <q3:Index>0</q3:Index>
+                <q3:Format>
+                  <q3:FrameSize>
+                    <q3:Width>160</q3:Width>
+                    <q3:Height>120</q3:Height>
+                  </q3:FrameSize>
+                  <q3:AverageFrameRate>30</q3:AverageFrameRate>
+                  <q3:MaximumFrameRate>30</q3:MaximumFrameRate>
+                  <q3:BitCount>24</q3:BitCount>
+                </q3:Format>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q4:VideoWriter">
+                <q4:FileName>2017-07-01-18-32-32/world.avi</q4:FileName>
+                <q4:Suffix>None</q4:Suffix>
+                <q4:Buffered>true</q4:Buffered>
+                <q4:Overwrite>false</q4:Overwrite>
+                <q4:FourCC>FMP4</q4:FourCC>
+                <q4:FrameRate>30</q4:FrameRate>
+                <q4:FrameSize>
+                  <q4:Width>0</q4:Width>
+                  <q4:Height>0</q4:Height>
+                </q4:FrameSize>
+                <q4:ResizeInterpolation>NearestNeighbor</q4:ResizeInterpolation>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Source.Value</Selector>
+            </Expression>
+            <Expression xsi:type="q1:CsvWriter">
+              <q1:FileName>2017-07-01-18-32-32/world.csv</q1:FileName>
+              <q1:Append>false</q1:Append>
+              <q1:Overwrite>false</q1:Overwrite>
+              <q1:Suffix>None</q1:Suffix>
+              <q1:IncludeHeader>false</q1:IncludeHeader>
+              <q1:Selector>Source.Timestamp</q1:Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Timestamp" />
+            </Expression>
+            <Expression xsi:type="q5:ExpressionTransform">
+              <q5:Expression>it.Timestamp.ToString("yyyy-MM-dd-HH-mm-ss")+"/"</q5:Expression>
+            </Expression>
+            <Expression xsi:type="ReplaySubject">
+              <Name>FolderName</Name>
+              <BufferSize xsi:nil="true" />
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FolderName</Name>
+            </Expression>
+            <Expression xsi:type="Add">
+              <Operand xsi:type="StringProperty">
+                <Value>world.csv</Value>
+              </Operand>
+            </Expression>
+            <Expression xsi:type="ExternalizedPropertyOfStringCsvWriter">
+              <MemberName>FileName</MemberName>
+              <Name />
+              <Value />
+            </Expression>
+            <Expression xsi:type="ExternalizedPropertyOfStringVideoWriter">
+              <MemberName>FileName</MemberName>
+              <Name />
+              <Value>world.avi</Value>
+            </Expression>
+            <Expression xsi:type="Add">
+              <Operand xsi:type="StringProperty">
+                <Value>world.avi</Value>
+              </Operand>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FolderName</Name>
+            </Expression>
+            <Expression xsi:type="ExternalizedPropertyOfStringCsvWriter">
+              <MemberName>FileName</MemberName>
+              <Name />
+              <Value>lefteye.csv</Value>
+            </Expression>
+            <Expression xsi:type="ExternalizedPropertyOfStringVideoWriter">
+              <MemberName>FileName</MemberName>
+              <Name />
+              <Value>lefteye.avi</Value>
+            </Expression>
+            <Expression xsi:type="Add">
+              <Operand xsi:type="StringProperty">
+                <Value>lefteye.csv</Value>
+              </Operand>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FolderName</Name>
+            </Expression>
+            <Expression xsi:type="Add">
+              <Operand xsi:type="StringProperty">
+                <Value>lefteye.avi</Value>
+              </Operand>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FolderName</Name>
+            </Expression>
+            <Expression xsi:type="ExternalizedPropertyOfStringCsvWriter">
+              <MemberName>FileName</MemberName>
+              <Name />
+              <Value>righteye.csv</Value>
+            </Expression>
+            <Expression xsi:type="ExternalizedPropertyOfStringVideoWriter">
+              <MemberName>FileName</MemberName>
+              <Name />
+              <Value>righteye.avi</Value>
+            </Expression>
+            <Expression xsi:type="Add">
+              <Operand xsi:type="StringProperty">
+                <Value>righteye.csv</Value>
+              </Operand>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FolderName</Name>
+            </Expression>
+            <Expression xsi:type="Add">
+              <Operand xsi:type="StringProperty">
+                <Value>righteye.avi</Value>
+              </Operand>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FolderName</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="SkipUntil" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="DelaySubscription">
+                <DueTime>PT1S</DueTime>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="SkipUntil" />
+            </Expression>
+            <Expression xsi:type="PublishSubject">
+              <Name>WorldStart</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>WorldStart</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>WorldStart</Name>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>7</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>3</From>
+              <To>13</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>4</From>
+              <To>3</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>5</From>
+              <To>4</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>6</From>
+              <To>5</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>7</From>
+              <To>25</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>8</From>
+              <To>45</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>9</From>
+              <To>47</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>10</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>11</From>
+              <To>14</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>12</From>
+              <To>17</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>13</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>14</From>
+              <To>15</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>15</From>
+              <To>16</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>17</From>
+              <To>19</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>19</From>
+              <To>18</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>20</From>
+              <To>46</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>21</From>
+              <To>5</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>22</From>
+              <To>21</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>23</From>
+              <To>22</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>24</From>
+              <To>23</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>25</From>
+              <To>26</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>27</From>
+              <To>28</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>28</From>
+              <To>29</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>29</From>
+              <To>23</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>30</From>
+              <To>21</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>31</From>
+              <To>30</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>32</From>
+              <To>31</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>33</From>
+              <To>14</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>34</From>
+              <To>16</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>35</From>
+              <To>33</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>36</From>
+              <To>35</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>37</From>
+              <To>34</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>38</From>
+              <To>37</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>39</From>
+              <To>17</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>40</From>
+              <To>18</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>41</From>
+              <To>39</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>42</From>
+              <To>41</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>43</From>
+              <To>40</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>44</From>
+              <To>43</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>45</From>
+              <To>11</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>46</From>
+              <To>48</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>47</From>
+              <To>12</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>48</From>
+              <To>24</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>49</From>
+              <To>45</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>50</From>
+              <To>47</To>
+              <Label>Source2</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q2:RenderFrame" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q2:DrawMesh">
+          <q2:ShaderName>Video</q2:ShaderName>
+          <q2:MeshName>Quad</q2:MeshName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="TakeUntil" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q2:WindowClosed" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="Repeat" />
+      </Expression>
+      <Expression xsi:type="SelectMany">
+        <Name>Feedback</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge>
+        <From>0</From>
+        <To>1</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>1</From>
+        <To>7</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>2</From>
+        <To>3</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>5</From>
+        <To>4</To>
+        <Label>Source2</Label>
+      </Edge>
+      <Edge>
+        <From>6</From>
+        <To>4</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>7</From>
+        <To>6</To>
+        <Label>Source1</Label>
+      </Edge>
+    </Edges>
+  </Workflow>
+  <ExtensionTypes>
+    <Type>Bonsai.IO.SerialStringRead, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.EqualBuilder, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.StringProperty, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Take, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Shaders.UpdateTexture, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Zip, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Timestamp, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Video.VideoCaptureDevice, Bonsai.Video, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Vision.FileCapture, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Last, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.IO.CsvWriter, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Vision.VideoWriter, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Scripting.ExpressionTransform, Bonsai.Scripting, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.AddBuilder, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.ExternalizedProperty`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Bonsai.IO.CsvWriter, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null]], Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.ExternalizedProperty`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Bonsai.Vision.VideoWriter, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null]], Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.SkipUntil, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.DelaySubscription, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Shaders.RenderFrame, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Shaders.DrawMesh, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.TakeUntil, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Shaders.WindowClosed, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Repeat, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+  </ExtensionTypes>
+</WorkflowBuilder>
