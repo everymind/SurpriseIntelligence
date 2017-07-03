@@ -1,17 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.3.0">
-  <Workflow xmlns:q2="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:q3="clr-namespace:Bonsai.Video;assembly=Bonsai.Video" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q5="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q4="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:q1="clr-namespace:Bonsai.IO;assembly=Bonsai.System" xmlns="https://horizongir.org/bonsai">
+  <Workflow xmlns:q2="clr-namespace:Bonsai.Video;assembly=Bonsai.Video" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:q3="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q5="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q4="clr-namespace:Bonsai.IO;assembly=Bonsai.System" xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns="https://horizongir.org/bonsai">
     <Nodes>
       <Expression xsi:type="NestedWorkflow">
         <Name>WaitForContact</Name>
         <Workflow>
           <Nodes>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q1:SerialStringRead">
-                <q1:PortName>COM5</q1:PortName>
-                <q1:NewLine>\r\n</q1:NewLine>
-              </Combinator>
-            </Expression>
             <Expression xsi:type="WorkflowOutput" />
             <Expression xsi:type="Condition">
               <Name>Contact</Name>
@@ -46,16 +40,19 @@
                 <Count>1</Count>
               </Combinator>
             </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Sensor</Name>
+            </Expression>
           </Nodes>
           <Edges>
             <Edge>
-              <From>0</From>
+              <From>1</From>
               <To>2</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>2</From>
-              <To>3</To>
+              <To>0</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -79,9 +76,9 @@
               <BufferSize xsi:nil="true" />
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q2:UpdateTexture">
-                <q2:TextureName>Video</q2:TextureName>
-                <q2:InternalFormat>Rgba</q2:InternalFormat>
+              <Combinator xsi:type="q1:UpdateTexture">
+                <q1:TextureName>Video</q1:TextureName>
+                <q1:InternalFormat>Rgba</q1:InternalFormat>
               </Combinator>
             </Expression>
             <Expression xsi:type="MemberSelector">
@@ -97,41 +94,41 @@
               <Combinator xsi:type="Timestamp" />
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q3:VideoCaptureDevice">
-                <q3:Index>1</q3:Index>
-                <q3:Format>
-                  <q3:FrameSize>
-                    <q3:Width>800</q3:Width>
-                    <q3:Height>600</q3:Height>
-                  </q3:FrameSize>
-                  <q3:AverageFrameRate>60</q3:AverageFrameRate>
-                  <q3:MaximumFrameRate>60</q3:MaximumFrameRate>
-                  <q3:BitCount>24</q3:BitCount>
-                </q3:Format>
+              <Combinator xsi:type="q2:VideoCaptureDevice">
+                <q2:Index>1</q2:Index>
+                <q2:Format>
+                  <q2:FrameSize>
+                    <q2:Width>800</q2:Width>
+                    <q2:Height>600</q2:Height>
+                  </q2:FrameSize>
+                  <q2:AverageFrameRate>60</q2:AverageFrameRate>
+                  <q2:MaximumFrameRate>60</q2:MaximumFrameRate>
+                  <q2:BitCount>24</q2:BitCount>
+                </q2:Format>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q3:VideoCaptureDevice">
-                <q3:Index>2</q3:Index>
-                <q3:Format>
-                  <q3:FrameSize>
-                    <q3:Width>800</q3:Width>
-                    <q3:Height>600</q3:Height>
-                  </q3:FrameSize>
-                  <q3:AverageFrameRate>60</q3:AverageFrameRate>
-                  <q3:MaximumFrameRate>60</q3:MaximumFrameRate>
-                  <q3:BitCount>24</q3:BitCount>
-                </q3:Format>
+              <Combinator xsi:type="q2:VideoCaptureDevice">
+                <q2:Index>2</q2:Index>
+                <q2:Format>
+                  <q2:FrameSize>
+                    <q2:Width>800</q2:Width>
+                    <q2:Height>600</q2:Height>
+                  </q2:FrameSize>
+                  <q2:AverageFrameRate>60</q2:AverageFrameRate>
+                  <q2:MaximumFrameRate>60</q2:MaximumFrameRate>
+                  <q2:BitCount>24</q2:BitCount>
+                </q2:Format>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q4:FileCapture">
-                <q4:FileName>Videos\CA_L1-H2013-03_2014-09-09_TS02_catch_60fps.avi</q4:FileName>
-                <q4:PlaybackRate>10000</q4:PlaybackRate>
-                <q4:StartPosition>0</q4:StartPosition>
-                <q4:PositionUnits>Frames</q4:PositionUnits>
-                <q4:Loop>false</q4:Loop>
-                <q4:Playing>true</q4:Playing>
+              <Combinator xsi:type="q3:FileCapture">
+                <q3:FileName>Videos\CA_L1-H2013-03_2014-09-09_TS02_catch_60fps.avi</q3:FileName>
+                <q3:PlaybackRate>10000</q3:PlaybackRate>
+                <q3:StartPosition>0</q3:StartPosition>
+                <q3:PositionUnits>Frames</q3:PositionUnits>
+                <q3:Loop>false</q3:Loop>
+                <q3:Playing>true</q3:Playing>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -143,97 +140,97 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="Last" />
             </Expression>
-            <Expression xsi:type="q1:CsvWriter">
-              <q1:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.csv</q1:FileName>
-              <q1:Append>false</q1:Append>
-              <q1:Overwrite>false</q1:Overwrite>
-              <q1:Suffix>None</q1:Suffix>
-              <q1:IncludeHeader>false</q1:IncludeHeader>
-              <q1:Selector>Source.Timestamp</q1:Selector>
+            <Expression xsi:type="q4:CsvWriter">
+              <q4:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.csv</q4:FileName>
+              <q4:Append>false</q4:Append>
+              <q4:Overwrite>false</q4:Overwrite>
+              <q4:Suffix>None</q4:Suffix>
+              <q4:IncludeHeader>false</q4:IncludeHeader>
+              <q4:Selector>Source.Timestamp</q4:Selector>
             </Expression>
             <Expression xsi:type="MemberSelector">
               <Selector>Source.Value</Selector>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q4:VideoWriter">
-                <q4:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.avi</q4:FileName>
-                <q4:Suffix>None</q4:Suffix>
-                <q4:Buffered>true</q4:Buffered>
-                <q4:Overwrite>false</q4:Overwrite>
-                <q4:FourCC>FMP4</q4:FourCC>
-                <q4:FrameRate>60</q4:FrameRate>
-                <q4:FrameSize>
-                  <q4:Width>0</q4:Width>
-                  <q4:Height>0</q4:Height>
-                </q4:FrameSize>
-                <q4:ResizeInterpolation>NearestNeighbor</q4:ResizeInterpolation>
+              <Combinator xsi:type="q3:VideoWriter">
+                <q3:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.avi</q3:FileName>
+                <q3:Suffix>None</q3:Suffix>
+                <q3:Buffered>true</q3:Buffered>
+                <q3:Overwrite>false</q3:Overwrite>
+                <q3:FourCC>FMP4</q3:FourCC>
+                <q3:FrameRate>60</q3:FrameRate>
+                <q3:FrameSize>
+                  <q3:Width>0</q3:Width>
+                  <q3:Height>0</q3:Height>
+                </q3:FrameSize>
+                <q3:ResizeInterpolation>NearestNeighbor</q3:ResizeInterpolation>
               </Combinator>
             </Expression>
-            <Expression xsi:type="q1:CsvWriter">
-              <q1:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_righteye.csv</q1:FileName>
-              <q1:Append>false</q1:Append>
-              <q1:Overwrite>false</q1:Overwrite>
-              <q1:Suffix>None</q1:Suffix>
-              <q1:IncludeHeader>false</q1:IncludeHeader>
-              <q1:Selector>Source.Timestamp</q1:Selector>
+            <Expression xsi:type="q4:CsvWriter">
+              <q4:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_righteye.csv</q4:FileName>
+              <q4:Append>false</q4:Append>
+              <q4:Overwrite>false</q4:Overwrite>
+              <q4:Suffix>None</q4:Suffix>
+              <q4:IncludeHeader>false</q4:IncludeHeader>
+              <q4:Selector>Source.Timestamp</q4:Selector>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q4:VideoWriter">
-                <q4:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_righteye.avi</q4:FileName>
-                <q4:Suffix>None</q4:Suffix>
-                <q4:Buffered>true</q4:Buffered>
-                <q4:Overwrite>false</q4:Overwrite>
-                <q4:FourCC>FMP4</q4:FourCC>
-                <q4:FrameRate>60</q4:FrameRate>
-                <q4:FrameSize>
-                  <q4:Width>0</q4:Width>
-                  <q4:Height>0</q4:Height>
-                </q4:FrameSize>
-                <q4:ResizeInterpolation>NearestNeighbor</q4:ResizeInterpolation>
+              <Combinator xsi:type="q3:VideoWriter">
+                <q3:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_righteye.avi</q3:FileName>
+                <q3:Suffix>None</q3:Suffix>
+                <q3:Buffered>true</q3:Buffered>
+                <q3:Overwrite>false</q3:Overwrite>
+                <q3:FourCC>FMP4</q3:FourCC>
+                <q3:FrameRate>60</q3:FrameRate>
+                <q3:FrameSize>
+                  <q3:Width>0</q3:Width>
+                  <q3:Height>0</q3:Height>
+                </q3:FrameSize>
+                <q3:ResizeInterpolation>NearestNeighbor</q3:ResizeInterpolation>
               </Combinator>
             </Expression>
             <Expression xsi:type="MemberSelector">
               <Selector>Source.Value</Selector>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q3:VideoCaptureDevice">
-                <q3:Index>0</q3:Index>
-                <q3:Format>
-                  <q3:FrameSize>
-                    <q3:Width>160</q3:Width>
-                    <q3:Height>120</q3:Height>
-                  </q3:FrameSize>
-                  <q3:AverageFrameRate>30</q3:AverageFrameRate>
-                  <q3:MaximumFrameRate>30</q3:MaximumFrameRate>
-                  <q3:BitCount>24</q3:BitCount>
-                </q3:Format>
+              <Combinator xsi:type="q2:VideoCaptureDevice">
+                <q2:Index>0</q2:Index>
+                <q2:Format>
+                  <q2:FrameSize>
+                    <q2:Width>160</q2:Width>
+                    <q2:Height>120</q2:Height>
+                  </q2:FrameSize>
+                  <q2:AverageFrameRate>30</q2:AverageFrameRate>
+                  <q2:MaximumFrameRate>30</q2:MaximumFrameRate>
+                  <q2:BitCount>24</q2:BitCount>
+                </q2:Format>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q4:VideoWriter">
-                <q4:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_world.avi</q4:FileName>
-                <q4:Suffix>None</q4:Suffix>
-                <q4:Buffered>true</q4:Buffered>
-                <q4:Overwrite>false</q4:Overwrite>
-                <q4:FourCC>FMP4</q4:FourCC>
-                <q4:FrameRate>30</q4:FrameRate>
-                <q4:FrameSize>
-                  <q4:Width>0</q4:Width>
-                  <q4:Height>0</q4:Height>
-                </q4:FrameSize>
-                <q4:ResizeInterpolation>NearestNeighbor</q4:ResizeInterpolation>
+              <Combinator xsi:type="q3:VideoWriter">
+                <q3:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_world.avi</q3:FileName>
+                <q3:Suffix>None</q3:Suffix>
+                <q3:Buffered>true</q3:Buffered>
+                <q3:Overwrite>false</q3:Overwrite>
+                <q3:FourCC>FMP4</q3:FourCC>
+                <q3:FrameRate>30</q3:FrameRate>
+                <q3:FrameSize>
+                  <q3:Width>0</q3:Width>
+                  <q3:Height>0</q3:Height>
+                </q3:FrameSize>
+                <q3:ResizeInterpolation>NearestNeighbor</q3:ResizeInterpolation>
               </Combinator>
             </Expression>
             <Expression xsi:type="MemberSelector">
               <Selector>Source.Value</Selector>
             </Expression>
-            <Expression xsi:type="q1:CsvWriter">
-              <q1:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_world.csv</q1:FileName>
-              <q1:Append>false</q1:Append>
-              <q1:Overwrite>false</q1:Overwrite>
-              <q1:Suffix>None</q1:Suffix>
-              <q1:IncludeHeader>false</q1:IncludeHeader>
-              <q1:Selector>Source.Timestamp</q1:Selector>
+            <Expression xsi:type="q4:CsvWriter">
+              <q4:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_world.csv</q4:FileName>
+              <q4:Append>false</q4:Append>
+              <q4:Overwrite>false</q4:Overwrite>
+              <q4:Suffix>None</q4:Suffix>
+              <q4:IncludeHeader>false</q4:IncludeHeader>
+              <q4:Selector>Source.Timestamp</q4:Selector>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="Timestamp" />
@@ -347,10 +344,10 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q5:Expression>
               <Name>WorldStart</Name>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q1:GetFiles">
-                <q1:Path>Videos</q1:Path>
-                <q1:SearchPattern>*.avi</q1:SearchPattern>
-                <q1:SearchOption>TopDirectoryOnly</q1:SearchOption>
+              <Combinator xsi:type="q4:GetFiles">
+                <q4:Path>Videos</q4:Path>
+                <q4:SearchPattern>*.avi</q4:SearchPattern>
+                <q4:SearchOption>TopDirectoryOnly</q4:SearchOption>
               </Combinator>
             </Expression>
             <Expression xsi:type="q5:PythonTransform">
@@ -388,8 +385,24 @@ def process(value):
             <Expression xsi:type="MemberSelector">
               <Selector>Source.Item2</Selector>
             </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="StringProperty">
+                <Value>h</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q4:SerialStringWrite">
+                <q4:PortName>COM3</q4:PortName>
+                <q4:NewLine />
+              </Combinator>
+            </Expression>
           </Nodes>
           <Edges>
+            <Edge>
+              <From>0</From>
+              <To>60</To>
+              <Label>Source1</Label>
+            </Edge>
             <Edge>
               <From>3</From>
               <To>13</To>
@@ -660,23 +673,28 @@ def process(value):
               <To>1</To>
               <Label>Source1</Label>
             </Edge>
+            <Edge>
+              <From>60</From>
+              <To>61</To>
+              <Label>Source1</Label>
+            </Edge>
           </Edges>
         </Workflow>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:RenderFrame" />
+        <Combinator xsi:type="q1:RenderFrame" />
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:DrawMesh">
-          <q2:ShaderName>Video</q2:ShaderName>
-          <q2:MeshName>Quad</q2:MeshName>
+        <Combinator xsi:type="q1:DrawMesh">
+          <q1:ShaderName>Video</q1:ShaderName>
+          <q1:MeshName>Quad</q1:MeshName>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="TakeUntil" />
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:WindowClosed" />
+        <Combinator xsi:type="q1:WindowClosed" />
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="Repeat" />
@@ -689,13 +707,13 @@ def process(value):
               <Name>Source1</Name>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q4:FileCapture">
-                <q4:FileName>2017-07-02_02-47-05/2017-07-02_02-47-05_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.avi</q4:FileName>
-                <q4:PlaybackRate>0</q4:PlaybackRate>
-                <q4:StartPosition>0</q4:StartPosition>
-                <q4:PositionUnits>Frames</q4:PositionUnits>
-                <q4:Loop>false</q4:Loop>
-                <q4:Playing>true</q4:Playing>
+              <Combinator xsi:type="q3:FileCapture">
+                <q3:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.avi</q3:FileName>
+                <q3:PlaybackRate>0</q3:PlaybackRate>
+                <q3:StartPosition>0</q3:StartPosition>
+                <q3:PositionUnits>Frames</q3:PositionUnits>
+                <q3:Loop>false</q3:Loop>
+                <q3:Playing>true</q3:Playing>
               </Combinator>
             </Expression>
             <Expression xsi:type="ExternalizedPropertyOfStringFileCapture">
@@ -706,6 +724,22 @@ def process(value):
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="DelaySubscription">
                 <DueTime>PT2S</DueTime>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q4:SerialStringWrite">
+                <q4:PortName>COM3</q4:PortName>
+                <q4:NewLine />
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="StringProperty">
+                <Value>l</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Take">
+                <Count>1</Count>
               </Combinator>
             </Expression>
           </Nodes>
@@ -730,8 +764,27 @@ def process(value):
               <To>3</To>
               <Label>Source1</Label>
             </Edge>
+            <Edge>
+              <From>6</From>
+              <To>7</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>7</From>
+              <To>5</To>
+              <Label>Source1</Label>
+            </Edge>
           </Edges>
         </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q4:SerialStringRead">
+          <q4:PortName>COM3</q4:PortName>
+          <q4:NewLine>\r\n</q4:NewLine>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="PublishSubject">
+        <Name>Sensor</Name>
       </Expression>
     </Nodes>
     <Edges>
@@ -765,10 +818,14 @@ def process(value):
         <To>6</To>
         <Label>Source1</Label>
       </Edge>
+      <Edge>
+        <From>8</From>
+        <To>9</To>
+        <Label>Source1</Label>
+      </Edge>
     </Edges>
   </Workflow>
   <ExtensionTypes>
-    <Type>Bonsai.IO.SerialStringRead, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.EqualBuilder, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.StringProperty, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Take, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -789,10 +846,12 @@ def process(value):
     <Type>Bonsai.IO.GetFiles, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Scripting.PythonTransform, Bonsai.Scripting, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.ExternalizedProperty`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Bonsai.Vision.FileCapture, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null]], Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.IO.SerialStringWrite, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.RenderFrame, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.DrawMesh, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.TakeUntil, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.WindowClosed, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Repeat, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.IO.SerialStringRead, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
   </ExtensionTypes>
 </WorkflowBuilder>
