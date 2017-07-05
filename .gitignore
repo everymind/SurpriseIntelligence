@@ -3,5 +3,6 @@
 *.nupkg
 packages
 Bonsai/Packages
+Bonsai/Bonsai.exe.settings
 SurpriseIntelligence/bin
 SurpriseIntelligence/obj
