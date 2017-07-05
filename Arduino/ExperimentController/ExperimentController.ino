@@ -63,7 +63,7 @@ void loop() {
   sensorValue = map(sensorValue, 0, 1023, 0, 2023*2);
   //Serial.print("Touch sensor: ");
   //Serial.println(sensorValue);
-  if ((LDR > 800) || (sensorValue<2500))
+  if ((LDR > 1000) || (sensorValue<250))
 // if ((sensorValue>3900))
   {
     if (interval != 300) 
