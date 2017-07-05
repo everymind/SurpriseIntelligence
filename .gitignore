@@ -1,0 +1,7 @@
+
+*.old
+*.nupkg
+packages
+Bonsai/Packages
+SurpriseIntelligence/bin
+SurpriseIntelligence/obj
