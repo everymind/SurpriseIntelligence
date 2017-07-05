@@ -123,7 +123,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q3:FileCapture">
-                <q3:FileName>Videos\CA_L1-H2013-03_2014-09-09_TS02_catch_60fps.avi</q3:FileName>
+                <q3:FileName>Videos\CA_L1-H2013-03_2014-09-09_TS01_miss_60fps.avi</q3:FileName>
                 <q3:PlaybackRate>10000</q3:PlaybackRate>
                 <q3:StartPosition>0</q3:StartPosition>
                 <q3:PositionUnits>Frames</q3:PositionUnits>
@@ -141,7 +141,7 @@
               <Combinator xsi:type="Last" />
             </Expression>
             <Expression xsi:type="q4:CsvWriter">
-              <q4:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.csv</q4:FileName>
+              <q4:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_lefteye.csv</q4:FileName>
               <q4:Append>false</q4:Append>
               <q4:Overwrite>false</q4:Overwrite>
               <q4:Suffix>None</q4:Suffix>
@@ -153,7 +153,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q3:VideoWriter">
-                <q3:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.avi</q3:FileName>
+                <q3:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_lefteye.avi</q3:FileName>
                 <q3:Suffix>None</q3:Suffix>
                 <q3:Buffered>true</q3:Buffered>
                 <q3:Overwrite>false</q3:Overwrite>
@@ -167,7 +167,7 @@
               </Combinator>
             </Expression>
             <Expression xsi:type="q4:CsvWriter">
-              <q4:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_righteye.csv</q4:FileName>
+              <q4:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_righteye.csv</q4:FileName>
               <q4:Append>false</q4:Append>
               <q4:Overwrite>false</q4:Overwrite>
               <q4:Suffix>None</q4:Suffix>
@@ -176,7 +176,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q3:VideoWriter">
-                <q3:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_righteye.avi</q3:FileName>
+                <q3:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_righteye.avi</q3:FileName>
                 <q3:Suffix>None</q3:Suffix>
                 <q3:Buffered>true</q3:Buffered>
                 <q3:Overwrite>false</q3:Overwrite>
@@ -208,7 +208,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q3:VideoWriter">
-                <q3:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_world.avi</q3:FileName>
+                <q3:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_world.avi</q3:FileName>
                 <q3:Suffix>None</q3:Suffix>
                 <q3:Buffered>true</q3:Buffered>
                 <q3:Overwrite>false</q3:Overwrite>
@@ -225,7 +225,7 @@
               <Selector>Source.Value</Selector>
             </Expression>
             <Expression xsi:type="q4:CsvWriter">
-              <q4:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_world.csv</q4:FileName>
+              <q4:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_world.csv</q4:FileName>
               <q4:Append>false</q4:Append>
               <q4:Overwrite>false</q4:Overwrite>
               <q4:Suffix>None</q4:Suffix>
@@ -691,11 +691,9 @@ def process(value):
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="TakeUntil" />
+        <Combinator xsi:type="Merge" />
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q1:WindowClosed" />
-      </Expression>
+      <Expression xsi:type="Unit" />
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="Repeat" />
       </Expression>
@@ -708,7 +706,7 @@ def process(value):
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q3:FileCapture">
-                <q3:FileName>2017-07-03_22-16-41/2017-07-03_22-16-41_CA_L1-H2013-03_2014-09-09_TS02_catch_60fps_lefteye.avi</q3:FileName>
+                <q3:FileName>2017-07-05_11-48-07/2017-07-05_11-48-07_CA_L1-H2013-03_2014-09-09_TS03_catch_60fps_lefteye.avi</q3:FileName>
                 <q3:PlaybackRate>0</q3:PlaybackRate>
                 <q3:StartPosition>0</q3:StartPosition>
                 <q3:PositionUnits>Frames</q3:PositionUnits>
@@ -742,6 +740,25 @@ def process(value):
                 <Count>1</Count>
               </Combinator>
             </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q3:SolidColor">
+                <q3:Size>
+                  <q3:Width>800</q3:Width>
+                  <q3:Height>600</q3:Height>
+                </q3:Size>
+                <q3:Depth>U8</q3:Depth>
+                <q3:Channels>3</q3:Channels>
+                <q3:Color>
+                  <q3:Val0>0</q3:Val0>
+                  <q3:Val1>0</q3:Val1>
+                  <q3:Val2>0</q3:Val2>
+                  <q3:Val3>0</q3:Val3>
+                </q3:Color>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Concat" />
+            </Expression>
           </Nodes>
           <Edges>
             <Edge>
@@ -761,7 +778,7 @@ def process(value):
             </Edge>
             <Edge>
               <From>4</From>
-              <To>3</To>
+              <To>9</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -772,6 +789,16 @@ def process(value):
             <Edge>
               <From>7</From>
               <To>5</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>8</From>
+              <To>9</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>9</From>
+              <To>3</To>
               <Label>Source1</Label>
             </Edge>
           </Edges>
@@ -785,6 +812,22 @@ def process(value):
       </Expression>
       <Expression xsi:type="PublishSubject">
         <Name>Sensor</Name>
+      </Expression>
+      <Expression xsi:type="Unit" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="DelaySubscription">
+          <DueTime>PT5S</DueTime>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Unit" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="Retry" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="TakeUntil" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q1:WindowClosed" />
       </Expression>
     </Nodes>
     <Edges>
@@ -804,13 +847,23 @@ def process(value):
         <Label>Source1</Label>
       </Edge>
       <Edge>
+        <From>3</From>
+        <To>12</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>4</From>
+        <To>14</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
         <From>5</From>
         <To>4</To>
         <Label>Source2</Label>
       </Edge>
       <Edge>
         <From>6</From>
-        <To>4</To>
+        <To>10</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -822,6 +875,36 @@ def process(value):
         <From>8</From>
         <To>9</To>
         <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>9</From>
+        <To>5</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>10</From>
+        <To>4</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>11</From>
+        <To>13</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>12</From>
+        <To>4</To>
+        <Label>Source3</Label>
+      </Edge>
+      <Edge>
+        <From>14</From>
+        <To>11</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>15</From>
+        <To>14</To>
+        <Label>Source2</Label>
       </Edge>
     </Edges>
   </Workflow>
@@ -849,9 +932,13 @@ def process(value):
     <Type>Bonsai.IO.SerialStringWrite, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.RenderFrame, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.DrawMesh, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Merge, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Repeat, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Vision.SolidColor, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Concat, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.IO.SerialStringRead, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Retry, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.TakeUntil, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.WindowClosed, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Reactive.Repeat, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.IO.SerialStringRead, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
   </ExtensionTypes>
 </WorkflowBuilder>
