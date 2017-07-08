@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.3.0">
-  <Workflow xmlns:q2="clr-namespace:Bonsai.Video;assembly=Bonsai.Video" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:q3="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q5="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q4="clr-namespace:Bonsai.IO;assembly=Bonsai.System" xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns="https://horizongir.org/bonsai">
+  <Workflow xmlns:q2="clr-namespace:Bonsai.Video;assembly=Bonsai.Video" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:q3="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q5="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q4="clr-namespace:Bonsai.IO;assembly=Bonsai.System" xmlns:q6="clr-namespace:SurpriseIntelligence;assembly=SurpriseIntelligence" xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns="https://horizongir.org/bonsai">
     <Nodes>
       <Expression xsi:type="NestedWorkflow">
         <Name>WaitForContact</Name>
@@ -123,7 +123,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q3:FileCapture">
-                <q3:FileName>Videos\CA_L1-H2013-03_2014-09-09_TS01_miss_60fps.avi</q3:FileName>
+                <q3:FileName>Videos\stimuli02.avi</q3:FileName>
                 <q3:PlaybackRate>10000</q3:PlaybackRate>
                 <q3:StartPosition>0</q3:StartPosition>
                 <q3:PositionUnits>Frames</q3:PositionUnits>
@@ -141,7 +141,7 @@
               <Combinator xsi:type="Last" />
             </Expression>
             <Expression xsi:type="q4:CsvWriter">
-              <q4:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_lefteye.csv</q4:FileName>
+              <q4:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_lefteye.csv</q4:FileName>
               <q4:Append>false</q4:Append>
               <q4:Overwrite>false</q4:Overwrite>
               <q4:Suffix>None</q4:Suffix>
@@ -153,7 +153,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q3:VideoWriter">
-                <q3:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_lefteye.avi</q3:FileName>
+                <q3:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_lefteye.avi</q3:FileName>
                 <q3:Suffix>None</q3:Suffix>
                 <q3:Buffered>true</q3:Buffered>
                 <q3:Overwrite>false</q3:Overwrite>
@@ -167,7 +167,7 @@
               </Combinator>
             </Expression>
             <Expression xsi:type="q4:CsvWriter">
-              <q4:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_righteye.csv</q4:FileName>
+              <q4:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_righteye.csv</q4:FileName>
               <q4:Append>false</q4:Append>
               <q4:Overwrite>false</q4:Overwrite>
               <q4:Suffix>None</q4:Suffix>
@@ -176,7 +176,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q3:VideoWriter">
-                <q3:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_righteye.avi</q3:FileName>
+                <q3:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_righteye.avi</q3:FileName>
                 <q3:Suffix>None</q3:Suffix>
                 <q3:Buffered>true</q3:Buffered>
                 <q3:Overwrite>false</q3:Overwrite>
@@ -208,7 +208,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q3:VideoWriter">
-                <q3:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_world.avi</q3:FileName>
+                <q3:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_world.avi</q3:FileName>
                 <q3:Suffix>None</q3:Suffix>
                 <q3:Buffered>true</q3:Buffered>
                 <q3:Overwrite>false</q3:Overwrite>
@@ -225,7 +225,7 @@
               <Selector>Source.Value</Selector>
             </Expression>
             <Expression xsi:type="q4:CsvWriter">
-              <q4:FileName>2017-07-05_11-50-00/2017-07-05_11-50-00_CA_L1-H2013-03_2014-09-09_TS01_miss_60fps_world.csv</q4:FileName>
+              <q4:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_world.csv</q4:FileName>
               <q4:Append>false</q4:Append>
               <q4:Overwrite>false</q4:Overwrite>
               <q4:Suffix>None</q4:Suffix>
@@ -236,7 +236,8 @@
               <Combinator xsi:type="Timestamp" />
             </Expression>
             <Expression xsi:type="q5:ExpressionTransform">
-              <q5:Expression>it.Timestamp.ToString("yyyy-MM-dd_HH-mm-ss")+"/"+
+              <q5:Expression>"../../Data/"+
+it.Timestamp.ToString("yyyy-MM-dd_HH-mm-ss")+"/"+
 it.Timestamp.ToString("yyyy-MM-dd_HH-mm-ss")+"_"+
 it.Value.Substring(it.Value.IndexOf("\")+1,
 it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q5:Expression>
@@ -706,7 +707,7 @@ def process(value):
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q3:FileCapture">
-                <q3:FileName>2017-07-05_11-48-07/2017-07-05_11-48-07_CA_L1-H2013-03_2014-09-09_TS03_catch_60fps_lefteye.avi</q3:FileName>
+                <q3:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_lefteye.avi</q3:FileName>
                 <q3:PlaybackRate>0</q3:PlaybackRate>
                 <q3:StartPosition>0</q3:StartPosition>
                 <q3:PositionUnits>Frames</q3:PositionUnits>
@@ -829,6 +830,12 @@ def process(value):
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q1:WindowClosed" />
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q6:ShowImage">
+          <q6:WindowState>Fullscreen</q6:WindowState>
+          <q6:Device>Second</q6:Device>
+        </Combinator>
+      </Expression>
     </Nodes>
     <Edges>
       <Edge>
@@ -863,7 +870,7 @@ def process(value):
       </Edge>
       <Edge>
         <From>6</From>
-        <To>10</To>
+        <To>16</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -906,6 +913,11 @@ def process(value):
         <To>14</To>
         <Label>Source2</Label>
       </Edge>
+      <Edge>
+        <From>16</From>
+        <To>10</To>
+        <Label>Source1</Label>
+      </Edge>
     </Edges>
   </Workflow>
   <ExtensionTypes>
@@ -940,5 +952,6 @@ def process(value):
     <Type>Bonsai.Reactive.Retry, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.TakeUntil, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.WindowClosed, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>SurpriseIntelligence.ShowImage, SurpriseIntelligence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
   </ExtensionTypes>
 </WorkflowBuilder>
