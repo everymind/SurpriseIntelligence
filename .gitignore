@@ -2,6 +2,7 @@
 .vs
 *.old
 *.nupkg
+Data
 packages
 Bonsai/Packages
 Bonsai/Bonsai.exe.settings
