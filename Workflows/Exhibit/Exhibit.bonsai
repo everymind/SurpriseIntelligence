@@ -1387,6 +1387,306 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
                 </q5:Format>
               </Combinator>
             </Expression>
+            <Expression xsi:type="NestedWorkflow">
+              <Name>LeftEye</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q1:VideoWriter">
+                      <q1:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_lefteye.avi</q1:FileName>
+                      <q1:Suffix>None</q1:Suffix>
+                      <q1:Buffered>true</q1:Buffered>
+                      <q1:Overwrite>false</q1:Overwrite>
+                      <q1:FourCC>FMP4</q1:FourCC>
+                      <q1:FrameRate>60</q1:FrameRate>
+                      <q1:FrameSize>
+                        <q1:Width>0</q1:Width>
+                        <q1:Height>0</q1:Height>
+                      </q1:FrameSize>
+                      <q1:ResizeInterpolation>NearestNeighbor</q1:ResizeInterpolation>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Source.Value</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedPropertyOfStringVideoWriter">
+                    <MemberName>FileName</MemberName>
+                    <Name />
+                    <Value>lefteye.avi</Value>
+                  </Expression>
+                  <Expression xsi:type="q7:CsvWriter">
+                    <q7:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_lefteye.csv</q7:FileName>
+                    <q7:Append>false</q7:Append>
+                    <q7:Overwrite>false</q7:Overwrite>
+                    <q7:Suffix>None</q7:Suffix>
+                    <q7:IncludeHeader>false</q7:IncludeHeader>
+                    <q7:Selector>Source.Timestamp</q7:Selector>
+                  </Expression>
+                  <Expression xsi:type="Add">
+                    <Operand xsi:type="StringProperty">
+                      <Value>lefteye.avi</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="Timestamp" />
+                  </Expression>
+                  <Expression xsi:type="ExternalizedPropertyOfStringCsvWriter">
+                    <MemberName>FileName</MemberName>
+                    <Name />
+                    <Value>lefteye.csv</Value>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>FolderName</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="SkipUntil" />
+                  </Expression>
+                  <Expression xsi:type="Add">
+                    <Operand xsi:type="StringProperty">
+                      <Value>lefteye.csv</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q5:VideoCaptureDevice">
+                      <q5:Index>1</q5:Index>
+                      <q5:Format>
+                        <q5:FrameSize>
+                          <q5:Width>800</q5:Width>
+                          <q5:Height>600</q5:Height>
+                        </q5:FrameSize>
+                        <q5:AverageFrameRate>60</q5:AverageFrameRate>
+                        <q5:MaximumFrameRate>60</q5:MaximumFrameRate>
+                        <q5:BitCount>24</q5:BitCount>
+                      </q5:Format>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>WorldStart</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>FolderName</Name>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge>
+                    <From>0</From>
+                    <To>13</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>1</From>
+                    <To>0</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>2</From>
+                    <To>0</To>
+                    <Label>Source2</Label>
+                  </Edge>
+                  <Edge>
+                    <From>3</From>
+                    <To>1</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>4</From>
+                    <To>2</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>5</From>
+                    <To>3</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>6</From>
+                    <To>3</To>
+                    <Label>Source2</Label>
+                  </Edge>
+                  <Edge>
+                    <From>7</From>
+                    <To>4</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>8</From>
+                    <To>5</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>9</From>
+                    <To>6</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>10</From>
+                    <To>8</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>11</From>
+                    <To>8</To>
+                    <Label>Source2</Label>
+                  </Edge>
+                  <Edge>
+                    <From>12</From>
+                    <To>9</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="NestedWorkflow">
+              <Name>RightEye</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q1:VideoWriter">
+                      <q1:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_righteye.avi</q1:FileName>
+                      <q1:Suffix>None</q1:Suffix>
+                      <q1:Buffered>true</q1:Buffered>
+                      <q1:Overwrite>false</q1:Overwrite>
+                      <q1:FourCC>FMP4</q1:FourCC>
+                      <q1:FrameRate>60</q1:FrameRate>
+                      <q1:FrameSize>
+                        <q1:Width>0</q1:Width>
+                        <q1:Height>0</q1:Height>
+                      </q1:FrameSize>
+                      <q1:ResizeInterpolation>NearestNeighbor</q1:ResizeInterpolation>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Source.Value</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedPropertyOfStringVideoWriter">
+                    <MemberName>FileName</MemberName>
+                    <Name />
+                    <Value>righteye.avi</Value>
+                  </Expression>
+                  <Expression xsi:type="q7:CsvWriter">
+                    <q7:FileName>../../Data/2017-07-06_10-25-58/2017-07-06_10-25-58_stimuli02_righteye.csv</q7:FileName>
+                    <q7:Append>false</q7:Append>
+                    <q7:Overwrite>false</q7:Overwrite>
+                    <q7:Suffix>None</q7:Suffix>
+                    <q7:IncludeHeader>false</q7:IncludeHeader>
+                    <q7:Selector>Source.Timestamp</q7:Selector>
+                  </Expression>
+                  <Expression xsi:type="Add">
+                    <Operand xsi:type="StringProperty">
+                      <Value>righteye.avi</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="Timestamp" />
+                  </Expression>
+                  <Expression xsi:type="ExternalizedPropertyOfStringCsvWriter">
+                    <MemberName>FileName</MemberName>
+                    <Name />
+                    <Value>righteye.csv</Value>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>FolderName</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="SkipUntil" />
+                  </Expression>
+                  <Expression xsi:type="Add">
+                    <Operand xsi:type="StringProperty">
+                      <Value>righteye.csv</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q5:VideoCaptureDevice">
+                      <q5:Index>2</q5:Index>
+                      <q5:Format>
+                        <q5:FrameSize>
+                          <q5:Width>800</q5:Width>
+                          <q5:Height>600</q5:Height>
+                        </q5:FrameSize>
+                        <q5:AverageFrameRate>60</q5:AverageFrameRate>
+                        <q5:MaximumFrameRate>60</q5:MaximumFrameRate>
+                        <q5:BitCount>24</q5:BitCount>
+                      </q5:Format>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>WorldStart</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>FolderName</Name>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge>
+                    <From>0</From>
+                    <To>13</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>1</From>
+                    <To>0</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>2</From>
+                    <To>0</To>
+                    <Label>Source2</Label>
+                  </Edge>
+                  <Edge>
+                    <From>3</From>
+                    <To>1</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>4</From>
+                    <To>2</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>5</From>
+                    <To>3</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>6</From>
+                    <To>3</To>
+                    <Label>Source2</Label>
+                  </Edge>
+                  <Edge>
+                    <From>7</From>
+                    <To>4</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>8</From>
+                    <To>5</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>9</From>
+                    <To>6</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>10</From>
+                    <To>8</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>11</From>
+                    <To>8</To>
+                    <Label>Source2</Label>
+                  </Edge>
+                  <Edge>
+                    <From>12</From>
+                    <To>9</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                </Edges>
+              </Workflow>
+            </Expression>
           </Nodes>
           <Edges>
             <Edge>
@@ -1971,6 +2271,7 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
     <Type>Bonsai.IO.GetFiles, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Concat, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.DelaySubscription, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.SkipUntil, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.DistinctUntilChanged, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
   </ExtensionTypes>
 </WorkflowBuilder>
