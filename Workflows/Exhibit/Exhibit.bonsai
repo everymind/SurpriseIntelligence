@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.3.0">
-  <Workflow xmlns:q2="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:q3="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns:q7="clr-namespace:Bonsai.IO;assembly=Bonsai.System" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q5="clr-namespace:Bonsai.Video;assembly=Bonsai.Video" xmlns:q4="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q6="clr-namespace:SurpriseIntelligence;assembly=SurpriseIntelligence" xmlns:q1="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns="https://horizongir.org/bonsai">
+  <Workflow xmlns:q2="clr-namespace:Bonsai.Arduino;assembly=Bonsai.Arduino" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:q3="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns:q7="clr-namespace:Bonsai.IO;assembly=Bonsai.System" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q5="clr-namespace:Bonsai.Video;assembly=Bonsai.Video" xmlns:q4="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q6="clr-namespace:SurpriseIntelligence;assembly=SurpriseIntelligence" xmlns:q1="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns="https://horizongir.org/bonsai">
     <Nodes>
       <Expression xsi:type="NestedWorkflow">
         <Name>RestingState</Name>
@@ -91,17 +91,31 @@
           </q1:Color>
         </Combinator>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:KeyDown">
-          <q2:Filter>Q</q2:Filter>
-        </Combinator>
+      <Expression xsi:type="Condition">
+        <Name>DownPress</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
       </Expression>
       <Expression xsi:type="BehaviorSubject">
         <Name>FeedbackFrames</Name>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:KeyDown">
-          <q2:Filter>W</q2:Filter>
+        <Combinator xsi:type="q2:DigitalInput">
+          <q2:PortName>COM5</q2:PortName>
+          <q2:Pin>9</q2:Pin>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
@@ -122,8 +136,9 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:KeyDown">
-          <q2:Filter>E</q2:Filter>
+        <Combinator xsi:type="q2:DigitalInput">
+          <q2:PortName>COM5</q2:PortName>
+          <q2:Pin>10</q2:Pin>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
@@ -165,7 +180,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q1:FileCapture">
-                <q1:FileName>Videos/CenterEye-German.avi</q1:FileName>
+                <q1:FileName>Videos/CenterEye-French.avi</q1:FileName>
                 <q1:PlaybackRate>0</q1:PlaybackRate>
                 <q1:StartPosition>0</q1:StartPosition>
                 <q1:PositionUnits>Frames</q1:PositionUnits>
@@ -267,19 +282,19 @@
                 <q1:Destination>
                   <q1:Point2f>
                     <q1:X>537</q1:X>
-                    <q1:Y>101</q1:Y>
+                    <q1:Y>103</q1:Y>
                   </q1:Point2f>
                   <q1:Point2f>
                     <q1:X>537</q1:X>
-                    <q1:Y>330</q1:Y>
+                    <q1:Y>332</q1:Y>
                   </q1:Point2f>
                   <q1:Point2f>
                     <q1:X>184</q1:X>
-                    <q1:Y>330</q1:Y>
+                    <q1:Y>332</q1:Y>
                   </q1:Point2f>
                   <q1:Point2f>
                     <q1:X>184</q1:X>
-                    <q1:Y>101</q1:Y>
+                    <q1:Y>103</q1:Y>
                   </q1:Point2f>
                 </q1:Destination>
                 <q1:Flags>Linear</q1:Flags>
@@ -440,6 +455,8 @@ def process(value):
                       <Count>1</Count>
                     </Combinator>
                   </Expression>
+                  <Expression xsi:type="Unit" />
+                  <Expression xsi:type="Unit" />
                 </Nodes>
                 <Edges>
                   <Edge>
@@ -449,7 +466,7 @@ def process(value):
                   </Edge>
                   <Edge>
                     <From>2</From>
-                    <To>4</To>
+                    <To>11</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
@@ -464,8 +481,8 @@ def process(value):
                   </Edge>
                   <Edge>
                     <From>5</From>
-                    <To>4</To>
-                    <Label>Source2</Label>
+                    <To>12</To>
+                    <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>6</From>
@@ -491,6 +508,16 @@ def process(value):
                     <From>10</From>
                     <To>5</To>
                     <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>11</From>
+                    <To>4</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>12</From>
+                    <To>4</To>
+                    <Label>Source2</Label>
                   </Edge>
                 </Edges>
               </Workflow>
@@ -735,8 +762,9 @@ def process(value):
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:KeyDown">
-          <q2:Filter>R</q2:Filter>
+        <Combinator xsi:type="q2:DigitalInput">
+          <q2:PortName>COM5</q2:PortName>
+          <q2:Pin>11</q2:Pin>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
@@ -748,8 +776,9 @@ def process(value):
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:KeyDown">
-          <q2:Filter>T</q2:Filter>
+        <Combinator xsi:type="q2:DigitalInput">
+          <q2:PortName>COM5</q2:PortName>
+          <q2:Pin>12</q2:Pin>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
@@ -803,30 +832,125 @@ def process(value):
           </Edges>
         </Workflow>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:KeyUp">
-          <q2:Filter>Q</q2:Filter>
-        </Combinator>
+      <Expression xsi:type="Condition">
+        <Name>Up</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="BitwiseNot" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>2</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:KeyUp">
-          <q2:Filter>W</q2:Filter>
-        </Combinator>
+      <Expression xsi:type="Condition">
+        <Name>Up</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="BitwiseNot" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>2</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:KeyUp">
-          <q2:Filter>E</q2:Filter>
-        </Combinator>
+      <Expression xsi:type="Condition">
+        <Name>Up</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="BitwiseNot" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>2</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:KeyUp">
-          <q2:Filter>R</q2:Filter>
-        </Combinator>
+      <Expression xsi:type="Condition">
+        <Name>Up</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="BitwiseNot" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>2</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q2:KeyUp">
-          <q2:Filter>T</q2:Filter>
-        </Combinator>
+      <Expression xsi:type="Condition">
+        <Name>Up</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="BitwiseNot" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>2</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="Merge" />
@@ -922,7 +1046,7 @@ def process(value):
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="q1:VideoWriter">
-                      <q1:FileName>../../Data/2017-10-05_18-37-52/2017-10-05_18-37-52_stimuli026_world.avi</q1:FileName>
+                      <q1:FileName>../../Data/2017-10-09_20-08-39/2017-10-09_20-08-39_stimuli028_world.avi</q1:FileName>
                       <q1:Suffix>None</q1:Suffix>
                       <q1:Buffered>true</q1:Buffered>
                       <q1:Overwrite>false</q1:Overwrite>
@@ -939,7 +1063,7 @@ def process(value):
                     <Selector>Source.Value</Selector>
                   </Expression>
                   <Expression xsi:type="q7:CsvWriter">
-                    <q7:FileName>../../Data/2017-10-05_18-37-52/2017-10-05_18-37-52_stimuli026_world.csv</q7:FileName>
+                    <q7:FileName>../../Data/2017-10-09_20-08-39/2017-10-09_20-08-39_stimuli028_world.csv</q7:FileName>
                     <q7:Append>false</q7:Append>
                     <q7:Overwrite>false</q7:Overwrite>
                     <q7:Suffix>None</q7:Suffix>
@@ -1098,7 +1222,7 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="q1:FileCapture">
-                      <q1:FileName>Videos/DoNotMove-German.avi</q1:FileName>
+                      <q1:FileName>Videos/DoNotMove-French.avi</q1:FileName>
                       <q1:PlaybackRate>10000</q1:PlaybackRate>
                       <q1:StartPosition>0</q1:StartPosition>
                       <q1:PositionUnits>Frames</q1:PositionUnits>
@@ -1118,7 +1242,7 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="q1:FileCapture">
-                      <q1:FileName>Videos\stimuli026.avi</q1:FileName>
+                      <q1:FileName>Videos\stimuli028.avi</q1:FileName>
                       <q1:PlaybackRate>10000</q1:PlaybackRate>
                       <q1:StartPosition>0</q1:StartPosition>
                       <q1:PositionUnits>Frames</q1:PositionUnits>
@@ -1128,7 +1252,7 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="q1:FileCapture">
-                      <q1:FileName>Videos/Thanks-German.avi</q1:FileName>
+                      <q1:FileName>Videos/Thanks-French.avi</q1:FileName>
                       <q1:PlaybackRate>10000</q1:PlaybackRate>
                       <q1:StartPosition>0</q1:StartPosition>
                       <q1:PositionUnits>Frames</q1:PositionUnits>
@@ -1352,7 +1476,7 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q1:FileCapture">
-                <q1:FileName>../../Data/2017-10-05_18-36-11/2017-10-05_18-36-11_stimuli026_world.avi</q1:FileName>
+                <q1:FileName>../../Data/2017-10-09_20-07-23/2017-10-09_20-07-23_stimuli025_world.avi</q1:FileName>
                 <q1:PlaybackRate>60</q1:PlaybackRate>
                 <q1:StartPosition>0</q1:StartPosition>
                 <q1:PositionUnits>Frames</q1:PositionUnits>
@@ -1400,7 +1524,7 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q1:FileCapture">
-                <q1:FileName>Videos/Replay-English.avi</q1:FileName>
+                <q1:FileName>Videos/Replay-French.avi</q1:FileName>
                 <q1:PlaybackRate>0</q1:PlaybackRate>
                 <q1:StartPosition>0</q1:StartPosition>
                 <q1:PositionUnits>Frames</q1:PositionUnits>
@@ -1479,6 +1603,99 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
       <Expression xsi:type="BehaviorSubject">
         <Name>TargetLanguage</Name>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q2:DigitalInput">
+          <q2:PortName>COM5</q2:PortName>
+          <q2:Pin>8</q2:Pin>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Condition">
+        <Name>DownPress</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Condition">
+        <Name>DownPress</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Condition">
+        <Name>DownPress</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Condition">
+        <Name>DownPress</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="DistinctUntilChanged" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="DistinctUntilChanged" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="DistinctUntilChanged" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="DistinctUntilChanged" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="DistinctUntilChanged" />
+      </Expression>
     </Nodes>
     <Edges>
       <Edge>
@@ -1498,12 +1715,12 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
       </Edge>
       <Edge>
         <From>4</From>
-        <To>23</To>
+        <To>19</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
         <From>6</From>
-        <To>19</To>
+        <To>43</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -1523,18 +1740,18 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
       </Edge>
       <Edge>
         <From>11</From>
-        <To>13</To>
+        <To>44</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
         <From>13</From>
         <To>21</To>
-        <Label>Source3</Label>
+        <Label>Source4</Label>
       </Edge>
       <Edge>
         <From>14</From>
         <To>21</To>
-        <Label>Source4</Label>
+        <Label>Source3</Label>
       </Edge>
       <Edge>
         <From>15</From>
@@ -1543,7 +1760,7 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
       </Edge>
       <Edge>
         <From>17</From>
-        <To>14</To>
+        <To>45</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -1554,11 +1771,11 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
       <Edge>
         <From>19</From>
         <To>21</To>
-        <Label>Source2</Label>
+        <Label>Source1</Label>
       </Edge>
       <Edge>
         <From>20</From>
-        <To>10</To>
+        <To>46</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -1569,7 +1786,7 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
       <Edge>
         <From>23</From>
         <To>21</To>
-        <Label>Source1</Label>
+        <Label>Source2</Label>
       </Edge>
       <Edge>
         <From>25</From>
@@ -1579,12 +1796,12 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
       <Edge>
         <From>26</From>
         <To>31</To>
-        <Label>Source1</Label>
+        <Label>Source5</Label>
       </Edge>
       <Edge>
         <From>27</From>
         <To>31</To>
-        <Label>Source2</Label>
+        <Label>Source4</Label>
       </Edge>
       <Edge>
         <From>28</From>
@@ -1594,12 +1811,12 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
       <Edge>
         <From>29</From>
         <To>31</To>
-        <Label>Source4</Label>
+        <Label>Source2</Label>
       </Edge>
       <Edge>
         <From>30</From>
         <To>31</To>
-        <Label>Source5</Label>
+        <Label>Source1</Label>
       </Edge>
       <Edge>
         <From>31</From>
@@ -1626,6 +1843,81 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
         <To>15</To>
         <Label>Source1</Label>
       </Edge>
+      <Edge>
+        <From>37</From>
+        <To>42</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>38</From>
+        <To>10</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>39</From>
+        <To>13</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>40</From>
+        <To>14</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>41</From>
+        <To>23</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>42</From>
+        <To>4</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>42</From>
+        <To>30</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>43</From>
+        <To>41</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>43</From>
+        <To>29</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>44</From>
+        <To>40</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>44</From>
+        <To>28</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>45</From>
+        <To>39</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>45</From>
+        <To>27</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>46</From>
+        <To>38</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>46</From>
+        <To>26</To>
+        <Label>Source1</Label>
+      </Edge>
     </Edges>
   </Workflow>
   <ExtensionTypes>
@@ -1633,7 +1925,7 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
     <Type>Bonsai.Vision.FileCapture, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Take, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.SolidColor, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Windows.Input.KeyDown, Bonsai.Windows.Input, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Arduino.DigitalInput, Bonsai.Arduino, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.UpdateTexture, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.StringProperty, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.DrawMesh, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -1669,7 +1961,7 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
     <Type>Bonsai.Reactive.Repeat, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.LoadImage, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.SinkBuilder, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Windows.Input.KeyUp, Bonsai.Windows.Input, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.BitwiseNotBuilder, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.ExternalizedProperty`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Bonsai.Vision.VideoWriter, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null]], Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.ExternalizedProperty`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Bonsai.IO.CsvWriter, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null]], Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Last, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -1679,5 +1971,6 @@ it.Value.LastIndexOf(".")-it.Value.IndexOf("\")-1)+"_"</q4:Expression>
     <Type>Bonsai.IO.GetFiles, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Concat, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.DelaySubscription, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.DistinctUntilChanged, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
   </ExtensionTypes>
 </WorkflowBuilder>
