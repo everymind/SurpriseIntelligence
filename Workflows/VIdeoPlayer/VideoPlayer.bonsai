@@ -397,6 +397,9 @@ def process(value):
                 <q4:NewLine />
               </Combinator>
             </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>Feedback</Name>
+            </Expression>
           </Nodes>
           <Edges>
             <Edge>
@@ -467,6 +470,11 @@ def process(value):
             <Edge>
               <From>15</From>
               <To>16</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>16</From>
+              <To>62</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -760,6 +768,9 @@ def process(value):
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="Concat" />
             </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>Feedback</Name>
+            </Expression>
           </Nodes>
           <Edges>
             <Edge>
@@ -799,6 +810,11 @@ def process(value):
             </Edge>
             <Edge>
               <From>9</From>
+              <To>10</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>10</From>
               <To>3</To>
               <Label>Source1</Label>
             </Edge>
@@ -836,6 +852,30 @@ def process(value):
           <q6:Device>Second</q6:Device>
         </Combinator>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q3:SolidColor">
+          <q3:Size>
+            <q3:Width>800</q3:Width>
+            <q3:Height>600</q3:Height>
+          </q3:Size>
+          <q3:Depth>U8</q3:Depth>
+          <q3:Channels>3</q3:Channels>
+          <q3:Color>
+            <q3:Val0>0</q3:Val0>
+            <q3:Val1>0</q3:Val1>
+            <q3:Val2>0</q3:Val2>
+            <q3:Val3>0</q3:Val3>
+          </q3:Color>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="BehaviorSubject">
+        <Name>Feedback</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Feedback</Name>
+      </Expression>
+      <Expression xsi:type="Unit" />
+      <Expression xsi:type="Unit" />
     </Nodes>
     <Edges>
       <Edge>
@@ -870,7 +910,7 @@ def process(value):
       </Edge>
       <Edge>
         <From>6</From>
-        <To>16</To>
+        <To>10</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -915,8 +955,33 @@ def process(value):
       </Edge>
       <Edge>
         <From>16</From>
-        <To>10</To>
+        <To>20</To>
         <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>17</From>
+        <To>18</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>18</From>
+        <To>21</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>19</From>
+        <To>16</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>20</From>
+        <To>4</To>
+        <Label>Source4</Label>
+      </Edge>
+      <Edge>
+        <From>21</From>
+        <To>4</To>
+        <Label>Source5</Label>
       </Edge>
     </Edges>
   </Workflow>
@@ -942,6 +1007,7 @@ def process(value):
     <Type>Bonsai.Scripting.PythonTransform, Bonsai.Scripting, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.ExternalizedProperty`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Bonsai.Vision.FileCapture, Bonsai.Vision, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null]], Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.IO.SerialStringWrite, Bonsai.System, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.MulticastSubjectBuilder, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.RenderFrame, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.DrawMesh, Bonsai.Shaders, Version=0.18.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Merge, Bonsai.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null</Type>
