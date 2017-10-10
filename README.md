@@ -6,7 +6,8 @@ Bonsai data acquisition workflows for the Surprising Minds interactive installat
 
 ### Arduino
 
-Can use any arduino, we used Arduino Uno. Software: Go to File > Examples > Firmata > StandardFirmata. Then click "Upload". 
+For this installation we used Arduino Micro, mounted on a breadboard.
+Software: Go to File > Examples > Firmata > SimpleDigitalFirmata. Then click "Upload". 
 
 Pin out assignments for language buttons: 
 French = 8
