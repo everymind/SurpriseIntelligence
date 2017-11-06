@@ -1,6 +1,7 @@
 
 .vs
 *.old
+*.lnk
 *.nupkg
 Data
 packages
