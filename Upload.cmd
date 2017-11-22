@@ -3,7 +3,7 @@ cd Data
 setlocal EnableDelayedExpansion
 
 REM Backup data
-for /f "tokens=1-4 delims=/ " %%a in ('date /t') do (set cdate=%%c-%%b-%%a)
+for /f "delims=" %%d in ('"powershell [DateTime]::Now.ToString('yyyy-MM-dd')"') do set cdate=%%d
 set search=./%cdate%*
 set filenames=
 for /d %%f in (%search%) do set filenames=!filenames! %%f
